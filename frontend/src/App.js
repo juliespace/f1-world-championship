@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="demo-big-content">
         <Layout>
-            <Header className="header-color" title="F1 WORLD CHAMPION" scroll>
+            <Header className="header-color" title="F1 WORLD CHAMPION">
                 <Navigation>
                     <Link to="/">Home</Link>
                     <Link to="/f1stats">F1 Statistics</Link>
@@ -31,7 +31,7 @@ function App() {
                 <div className="page-content" />
                 <Main/>
             </Content>
-            
+
             <Footer size="mini">
               <FooterSection type="left" logo="UPenn CIS 550">
               </FooterSection>
