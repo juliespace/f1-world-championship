@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.upenn.cis550.f1project.mapper.F1Mapper">
+
+    <select id="getCityByName" resultType="edu.upenn.cis550.f1project.entity.City">
+        SELECT *
+        FROM usa_city
+        WHERE city_name = #{name};
+    </select>
+
+    <insert id="saveCity" parameterType="edu.upenn.cis550.f1project.entity.City">
+        INSERT INTO usa_city (city_name, state_name)
+        VALUES (#{city.cityName}, #{city.stateName});
+    </insert>
+
+</mapper>
