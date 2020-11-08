@@ -28,6 +28,10 @@
   </component>
   <component name="ProjectId" id="1jyKR7fOcNkjQueqK9RoqRlL2Ux" />
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/backend" />
@@ -67,7 +71,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1604770880533</updated>
-      <workItem from="1604770881790" duration="112000" />
+      <workItem from="1604770881790" duration="872000" />
     </task>
     <servers />
   </component>
