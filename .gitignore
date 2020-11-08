@@ -1,6 +1,6 @@
 backend/target
 ### IntelliJ IDEA ###
-backend/.idea
+backend/.idea/
 backend/*.iws
 backend/*.iml
 backend/*.ipr
