@@ -17,13 +17,16 @@
 		(#{city.cityName}, #{city.stateName});
 	</insert>
 
-	<resultMap id="constructorRsts" type="edu.upenn.cis550.f1project.entity.ConstructorWithLapTime">
+
+<!-- 1st constructor query -->
+ 	<resultMap id="constructorRstWithTime"
+		type="edu.upenn.cis550.f1project.entity.ConstructorWithLapTime">
 		<result property="constructorName" column="name" />
 		<result property="averageLapTime" column="avg_lap_time" />
 	</resultMap>
-	
+
 	<select id="getConstructorsWithLeastLapTime"
-		resultMap="constructorRsts">
+		resultMap="constructorRstWithTime">
 		select constructor_name as name, avg (lt.milliseconds) as
 		avg_lap_time
 		from
@@ -40,6 +43,22 @@
 		limit #{number};
 	</select>
 
+<!-- 2st constructor query -->
+	<resultMap id="constructorRstWithPoints"
+		type="edu.upenn.cis550.f1project.entity.ConstructorWithPoints">
+		<result property="constructorName" column="name" />
+		<result property="points" column="total_points" />
+	</resultMap>
 
+	<select id="getConstructorsWithMostPoints"
+		resultMap="constructorRstWithPoints">
+		select constructor_name as name, sum(cr.points) as total_points
+		from constructor c join constructor_result cr on c.id = cr.constructor_id
+		join race r on cr.race_id = r.id
+		where race_year &gt;= #{startYear} and race_year &lt;= #{endYear}
+		group by constructor_name
+		order by total_points desc
+		limit #{number};
+	</select>
 
 </mapper>

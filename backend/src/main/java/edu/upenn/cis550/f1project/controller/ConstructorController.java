@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.upenn.cis550.f1project.entity.ConstructorWithLapTime;
+import edu.upenn.cis550.f1project.entity.ConstructorWithPoints;
 import edu.upenn.cis550.f1project.service.ConstructorService;
 
 @RestController
@@ -22,5 +23,11 @@ public class ConstructorController {
 	public List<ConstructorWithLapTime> getConstructorsWithLapTime(@RequestParam("number") int number,
 			@RequestParam("startYear") int startYear, @RequestParam("endYear") int endYear) {
 		return constructorService.getConstructorsWithLeastLapTime(number, startYear, endYear);
+	}
+	
+	@GetMapping("/points")
+	public List<ConstructorWithPoints> getConstructorsWithPoints(@RequestParam("number") int number,
+			@RequestParam("startYear") int startYear, @RequestParam("endYear") int endYear) {
+		return constructorService.getConstructorsWithMostPonts(number, startYear, endYear); 
 	}
 }

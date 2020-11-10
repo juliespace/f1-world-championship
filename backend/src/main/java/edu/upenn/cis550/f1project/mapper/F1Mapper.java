@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import edu.upenn.cis550.f1project.entity.City;
 import edu.upenn.cis550.f1project.entity.ConstructorWithLapTime;
+import edu.upenn.cis550.f1project.entity.ConstructorWithPoints;
 
 @Repository
 public interface F1Mapper {
@@ -17,5 +18,6 @@ public interface F1Mapper {
 	List<ConstructorWithLapTime> getConstructorsWithLeastLapTime(@Param("number") int number,
 			@Param("startYear") int startYear, @Param("endYear") int endYear);
 	
-	
+	List<ConstructorWithPoints> getConstructorsWithMostPoints(@Param("number") int number,
+			@Param("startYear") int startYear, @Param("endYear") int endYear);
 }
