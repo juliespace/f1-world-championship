@@ -3,10 +3,10 @@ package edu.upenn.cis550.f1project.entity;
 import lombok.Data;
 
 @Data
-public class DriverWithLapTime {
+public class DriverWithPoints {
 	private String forename;
 	private String surname;
-	private int milliseconds;
+	private int points;
 
 	public String getForename() {
 		return forename;
@@ -24,18 +24,17 @@ public class DriverWithLapTime {
 		this.surname = surname;
 	}
 
-	public int getMilliseconds() {
-		return milliseconds;
+	public int getPoints() {
+		return points;
 	}
 
-	public void setMilliseconds(int milliseconds) {
-		this.milliseconds = milliseconds;
+	public void setPoints(int points) {
+		this.points = points;
 	}
 
 	@Override
 	public String toString() {
-		return "DriverWithLapTime [forename=" + forename + ", surname=" + surname + ", milliseconds=" + milliseconds
-				+ "]";
+		return "DriverWithPoints [forename=" + forename + ", surname=" + surname + ", points=" + points + "]";
 	}
 
 }

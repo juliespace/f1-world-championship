@@ -9,6 +9,7 @@ import edu.upenn.cis550.f1project.entity.City;
 import edu.upenn.cis550.f1project.entity.ConstructorWithLapTime;
 import edu.upenn.cis550.f1project.entity.ConstructorWithPoints;
 import edu.upenn.cis550.f1project.entity.DriverWithLapTime;
+import edu.upenn.cis550.f1project.entity.DriverWithPoints;
 
 @Repository
 public interface F1Mapper {
@@ -23,4 +24,7 @@ public interface F1Mapper {
 			@Param("startYear") int startYear, @Param("endYear") int endYear);
 
 	List<DriverWithLapTime> getDriversWithLeastLapTime(@Param("number") int number, @Param("year") int season);
+	
+	List<DriverWithPoints> getDriverWithMostPoints(@Param("number") int number,
+			@Param("startYear") int startYear, @Param("endYear") int endYear);
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.upenn.cis550.f1project.entity.DriverWithLapTime;
+import edu.upenn.cis550.f1project.entity.DriverWithPoints;
 import edu.upenn.cis550.f1project.service.DriverService;
 
 @RestController
@@ -22,5 +23,11 @@ public class DriverController {
 	public List<DriverWithLapTime> getDriversWithLapTime(@RequestParam("number") int number,
 			@RequestParam("season") int season) {
 		return driverService.getDriversWithLapTime(number, season); 
+	}
+	
+	@GetMapping("/points") 
+	public List<DriverWithPoints> getDriverWithPoints(@RequestParam("number") int number,
+			@RequestParam("startYear") int startYear, @RequestParam("endYear") int endYear) {
+		return driverService.getDriverWithMostPoints(number, startYear, endYear); 
 	}
 }
