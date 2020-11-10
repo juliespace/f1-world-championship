@@ -3,15 +3,43 @@
 
 <mapper namespace="edu.upenn.cis550.f1project.mapper.F1Mapper">
 
-    <select id="getCityByName" resultType="edu.upenn.cis550.f1project.entity.City">
-        SELECT *
-        FROM usa_city
-        WHERE city_name = #{name};
-    </select>
+	<select id="getCityByName"
+		resultType="edu.upenn.cis550.f1project.entity.City">
+		SELECT *
+		FROM usa_city
+		WHERE city_name = #{name};
+	</select>
 
-    <insert id="saveCity" parameterType="edu.upenn.cis550.f1project.entity.City">
-        INSERT INTO usa_city (city_name, state_name)
-        VALUES (#{city.cityName}, #{city.stateName});
-    </insert>
+	<insert id="saveCity"
+		parameterType="edu.upenn.cis550.f1project.entity.City">
+		INSERT INTO usa_city (city_name, state_name)
+		VALUES
+		(#{city.cityName}, #{city.stateName});
+	</insert>
+
+	<resultMap id="constructorRsts" type="edu.upenn.cis550.f1project.entity.ConstructorWithLapTime">
+		<result property="constructorName" column="name" />
+		<result property="averageLapTime" column="avg_lap_time" />
+	</resultMap>
+	
+	<select id="getConstructorsWithLeastLapTime"
+		resultMap="constructorRsts">
+		select constructor_name as name, avg (lt.milliseconds) as
+		avg_lap_time
+		from
+		constructor c join constructor_result cr on c.id =
+		cr.constructor_id
+		join lap_time lt on cr.race_id = lt.race_id
+		join race
+		r on cr.race_id = r.id
+		where r.race_year &gt;= #{startYear} and
+		r.race_year &lt;= #{endYear}
+		group by constructor_name
+		order by
+		avg_lap_time asc
+		limit #{number};
+	</select>
+
+
 
 </mapper>
