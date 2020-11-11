@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.upenn.cis550.f1project.mapper.GDPMapper">
+
+    <resultMap id="countryWithGDP" type="edu.upenn.cis550.f1project.entity.vo.CountryWithGDP">
+        <result property="year" column="year" />
+        <result property="gdp" column="gdp" />
+        <result property="countryName" column="country_name" />
+    </resultMap>
+
+
+    <select id="selectCountriesThatHoldF1WithGDP"
+            resultMap="countryWithGDP">
+        SELECT gdp.year, gdp.gdp, c.country_name
+        FROM world_gdp gdp
+                 JOIN country c ON gdp.country_id = c.id
+        WHERE gdp.year = #{year}
+          AND c.country_name IN (
+            SELECT DISTINCT c.country_name
+            FROM (
+                     SELECT c.country_id
+                     FROM race r
+                              JOIN circuit c ON r.circuit_id = c.id
+                     WHERE r.race_year = 2010) AS t1
+                     JOIN country c ON t1.country_id = c.id)
+        ORDER BY gdp.gdp DESC;
+    </select>
+</mapper>

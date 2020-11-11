@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import edu.upenn.cis550.f1project.entity.DriverWithLapTime;
 import edu.upenn.cis550.f1project.entity.DriverWithPoints;
 
-@Service
 public interface DriverService {
 
 	List<DriverWithLapTime> getDriversWithLapTime(int number, int season);
