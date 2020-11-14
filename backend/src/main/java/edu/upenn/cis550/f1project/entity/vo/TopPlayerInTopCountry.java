@@ -2,6 +2,8 @@ package edu.upenn.cis550.f1project.entity.vo;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 public class TopPlayerInTopCountry {
     Integer id;
@@ -9,4 +11,5 @@ public class TopPlayerInTopCountry {
     String surname;
     Integer totalPoints;
     String countryName;
+    BigDecimal gdp;
 }

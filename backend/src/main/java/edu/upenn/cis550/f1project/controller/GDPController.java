@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/gdp")
 public class GDPController {
     @Autowired
     GDPService gdpService;
@@ -23,15 +22,15 @@ public class GDPController {
         return R.ok().put("data", result);
     }
 
-    @GetMapping("/driver/{id}/homeland_gdp_trend")
-    public R getHomelandGDPTrend(@PathVariable("id") int id) {
-        Map<String, String> result = gdpService.findDriverHomelandGDPTrend(id);
+    @GetMapping("homeland_gdp_trend")
+    public R getHomelandGDPTrend(@RequestParam("id") int id, @RequestParam("years") int years) {
+        Map<String, String> result = gdpService.findDriverHomelandGDPTrend(id, years);
 
         return R.ok().put("data", result);
     }
 
-    @GetMapping("/drivers/{mPercentage}/countries/{nPercentage}")
-    public R getTopPlayerAndTopCountry(@PathVariable("mPercentage") int mPercentage, @PathVariable("nPercentage") int nPercentage) {
+    @GetMapping("/top_drivers_in_top_countries")
+    public R getTopPlayerAndTopCountry(@RequestParam("mPercentage") int mPercentage, @RequestParam("nPercentage") int nPercentage) {
         List<TopPlayerInTopCountry> result = gdpService.getTopPlayerAndTopCountry(mPercentage, nPercentage);
 
         return R.ok().put("data", result);

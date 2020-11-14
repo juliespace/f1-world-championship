@@ -40,7 +40,7 @@
            WHERE country_id = (SELECT t1.country_id FROM (SELECT * FROM driver d WHERE d.id = #{id}) AS t1)
              AND gdp > 0
            ORDER BY year DESC
-           LIMIT 1) - year) > 5)
+           LIMIT 1) - year) > #{years})
  ORDER BY year DESC
  LIMIT 1)
 UNION
@@ -54,10 +54,11 @@ ON c.id = t2.country_id;
         <result property="surname" column="surname"/>
         <result property="totalPoints" column="total_points"/>
         <result property="countryName" column="country_name"/>
+        <result property="gdp" column="gdp"/>
     </resultMap>
 
     <select id="bestDriverXBestCountry" resultMap="TopXTop">
-        SELECT d.id, d.forename, d.surname, t1.points AS total_points, c.country_name
+        SELECT d.id, d.forename, d.surname, t1.points AS total_points, c.country_name, t3.gdp
 FROM driver d
          JOIN (SELECT driver_id, SUM(points) AS points
                FROM driver_standing
@@ -66,11 +67,11 @@ FROM driver d
                LIMIT #{m}) AS t1
               ON d.id = t1.driver_id
          JOIN country c on d.country_id = c.id
-         JOIN (SELECT t2.country_id
-               FROM (SELECT country_id
+         JOIN (SELECT t2.country_id, t2.gdp
+               FROM (SELECT country_id, SUM(gdp) AS gdp
                      FROM world_gdp
                      GROUP BY country_id
-                     ORDER BY SUM(gdp) DESC
+                     ORDER BY gdp DESC
                      LIMIT #{n}) AS t2) AS t3
               ON d.country_id = t3.country_id;
     </select>

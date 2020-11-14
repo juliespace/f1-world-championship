@@ -11,7 +11,7 @@ import java.util.List;
 public interface GDPMapper {
     List<CountryWithGDP> selectCountriesThatHoldF1WithGDP(@Param("year") int year);
 
-    List<CountryWithGDP> findDriverHomelandGDPTrend(@Param("id") int id);
+    List<CountryWithGDP> findDriverHomelandGDPTrend(@Param("id") int id, @Param("years") int years);
 
     List<TopPlayerInTopCountry> bestDriverXBestCountry(@Param("m") int m, @Param("n") int n);
 }

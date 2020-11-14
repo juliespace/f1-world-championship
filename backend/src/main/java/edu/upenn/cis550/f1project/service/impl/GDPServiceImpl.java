@@ -34,8 +34,8 @@ public class GDPServiceImpl implements GDPService {
     }
 
     @Override
-    public Map<String, String> findDriverHomelandGDPTrend(int driverId) {
-        List<CountryWithGDP> list = gdpMapper.findDriverHomelandGDPTrend(driverId);
+    public Map<String, String> findDriverHomelandGDPTrend(int driverId, int years) {
+        List<CountryWithGDP> list = gdpMapper.findDriverHomelandGDPTrend(driverId, years);
 
         double value1 = list.get(0).getGdp().doubleValue();
         double value2 = list.get(1).getGdp().doubleValue();

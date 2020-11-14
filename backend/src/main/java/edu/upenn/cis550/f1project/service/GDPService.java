@@ -9,7 +9,7 @@ import java.util.Map;
 public interface GDPService {
     List<CountryWithGDP> selectCountriesThatHoldF1WithGDP(int year);
 
-    Map<String, String> findDriverHomelandGDPTrend(int driverId);
+    Map<String, String> findDriverHomelandGDPTrend(int driverId, int years);
 
     List<TopPlayerInTopCountry> getTopPlayerAndTopCountry(int mPercentage, int nPercentage);
 }
