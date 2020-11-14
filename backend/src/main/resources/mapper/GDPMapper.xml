@@ -4,9 +4,9 @@
 <mapper namespace="edu.upenn.cis550.f1project.mapper.GDPMapper">
 
     <resultMap id="countryWithGDP" type="edu.upenn.cis550.f1project.entity.vo.CountryWithGDP">
-        <result property="year" column="year" />
-        <result property="gdp" column="gdp" />
-        <result property="countryName" column="country_name" />
+        <result property="year" column="year"/>
+        <result property="gdp" column="gdp"/>
+        <result property="countryName" column="country_name"/>
     </resultMap>
 
 
@@ -25,5 +25,53 @@
                      WHERE r.race_year = 2010) AS t1
                      JOIN country c ON t1.country_id = c.id)
         ORDER BY gdp.gdp DESC;
+    </select>
+
+    <!--
+    The GDP trend within the last N (user input) years of the home country of player X (user input)
+    -->
+    <select id="findDriverHomelandGDPTrend" resultMap="countryWithGDP">
+        SELECT c.country_name, t2.year, t2.gdp FROM country c JOIN ((SELECT *
+ FROM world_gdp
+ WHERE (country_id = (SELECT t1.country_id FROM (SELECT * FROM driver d WHERE d.id = #{id}) AS t1)
+     AND gdp > 0
+     AND ((SELECT year
+           FROM world_gdp w
+           WHERE country_id = (SELECT t1.country_id FROM (SELECT * FROM driver d WHERE d.id = #{id}) AS t1)
+             AND gdp > 0
+           ORDER BY year DESC
+           LIMIT 1) - year) > 5)
+ ORDER BY year DESC
+ LIMIT 1)
+UNION
+(SELECT * FROM world_gdp WHERE country_id = (SELECT t1.country_id FROM (SELECT * FROM driver d WHERE d.id = #{id}) AS t1) AND gdp > 0 ORDER BY year DESC LIMIT 1)) AS t2
+ON c.id = t2.country_id;
+    </select>
+
+    <resultMap id="TopXTop" type="edu.upenn.cis550.f1project.entity.vo.TopPlayerInTopCountry">
+        <result property="id" column="id"/>
+        <result property="forename" column="forename"/>
+        <result property="surname" column="surname"/>
+        <result property="totalPoints" column="total_points"/>
+        <result property="countryName" column="country_name"/>
+    </resultMap>
+
+    <select id="bestDriverXBestCountry" resultMap="TopXTop">
+        SELECT d.id, d.forename, d.surname, t1.points AS total_points, c.country_name
+FROM driver d
+         JOIN (SELECT driver_id, SUM(points) AS points
+               FROM driver_standing
+               GROUP BY driver_id
+               ORDER BY points DESC
+               LIMIT #{m}) AS t1
+              ON d.id = t1.driver_id
+         JOIN country c on d.country_id = c.id
+         JOIN (SELECT t2.country_id
+               FROM (SELECT country_id
+                     FROM world_gdp
+                     GROUP BY country_id
+                     ORDER BY SUM(gdp) DESC
+                     LIMIT #{n}) AS t2) AS t3
+              ON d.country_id = t3.country_id;
     </select>
 </mapper>
