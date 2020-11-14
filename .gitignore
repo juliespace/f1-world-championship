@@ -1,3 +1,14 @@
+backend/target
+### IntelliJ IDEA ###
+backend/.idea/
+backend/*.iws
+backend/*.iml
+backend/*.ipr
+.idea
+
+### data ###
+backend/data
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,react,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,react,macos
