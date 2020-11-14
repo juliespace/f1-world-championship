@@ -6,6 +6,7 @@ class F1stats extends Component {
     super(props);
     this.state = {activeTab: 0};
   }
+  //activeTab is the tab to switch from DRIVERS to CONSTUCTORS
 
   render(){
     return(
