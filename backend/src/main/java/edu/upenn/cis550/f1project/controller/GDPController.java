@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/gdp")
 public class GDPController {
     @Autowired
     GDPService gdpService;
@@ -22,7 +23,7 @@ public class GDPController {
         return R.ok().put("data", result);
     }
 
-    @GetMapping("homeland_gdp_trend")
+    @GetMapping("/homeland_gdp_trend")
     public R getHomelandGDPTrend(@RequestParam("id") int id, @RequestParam("years") int years) {
         Map<String, String> result = gdpService.findDriverHomelandGDPTrend(id, years);
 
