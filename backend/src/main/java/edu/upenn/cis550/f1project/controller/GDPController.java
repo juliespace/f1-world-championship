@@ -31,7 +31,7 @@ public class GDPController {
     }
 
     @GetMapping("/top_drivers_in_top_countries")
-    public R getTopPlayerAndTopCountry(@RequestParam("mPercentage") int mPercentage, @RequestParam("nPercentage") int nPercentage) {
+    public R getTopPlayerAndTopCountry(@RequestParam("m") int mPercentage, @RequestParam("n") int nPercentage) {
         List<TopPlayerInTopCountry> result = gdpService.getTopPlayerAndTopCountry(mPercentage, nPercentage);
 
         return R.ok().put("data", result);
