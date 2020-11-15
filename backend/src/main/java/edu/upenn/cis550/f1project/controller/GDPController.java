@@ -2,7 +2,8 @@ package edu.upenn.cis550.f1project.controller;
 
 import edu.upenn.cis550.f1project.common.R;
 import edu.upenn.cis550.f1project.entity.vo.CountryWithGDP;
-import edu.upenn.cis550.f1project.entity.vo.TopPlayerInTopCountry;
+import edu.upenn.cis550.f1project.entity.vo.CountryWithTotalGDP;
+import edu.upenn.cis550.f1project.entity.vo.TopDriverInTopCountry;
 import edu.upenn.cis550.f1project.service.GDPService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +32,15 @@ public class GDPController {
     }
 
     @GetMapping("/top_drivers_in_top_countries")
-    public R getTopPlayerAndTopCountry(@RequestParam("m") int mPercentage, @RequestParam("n") int nPercentage) {
-        List<TopPlayerInTopCountry> result = gdpService.getTopPlayerAndTopCountry(mPercentage, nPercentage);
+    public R getTopDriverAndTopCountry(@RequestParam("m") int mPercentage, @RequestParam("n") int nPercentage) {
+        List<TopDriverInTopCountry> result = gdpService.getTopDriverAndTopCountry(mPercentage, nPercentage);
+
+        return R.ok().put("data", result);
+    }
+
+    @GetMapping("/top_driver_homeland_gdp")
+    public R getTopDriverHomelandGDP(@RequestParam("n") int nPercentage) {
+        List<CountryWithTotalGDP> result = gdpService.getTopDriverHomeLandGDP(nPercentage);
 
         return R.ok().put("data", result);
     }

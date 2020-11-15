@@ -22,7 +22,7 @@
                      SELECT c.country_id
                      FROM race r
                               JOIN circuit c ON r.circuit_id = c.id
-                     WHERE r.race_year = 2010) AS t1
+                     WHERE r.race_year = #{year}) AS t1
                      JOIN country c ON t1.country_id = c.id)
         ORDER BY gdp.gdp DESC;
     </select>
@@ -48,7 +48,7 @@ UNION
 ON c.id = t2.country_id;
     </select>
 
-    <resultMap id="TopXTop" type="edu.upenn.cis550.f1project.entity.vo.TopPlayerInTopCountry">
+    <resultMap id="TopXTop" type="edu.upenn.cis550.f1project.entity.vo.TopDriverInTopCountry">
         <result property="id" column="id"/>
         <result property="forename" column="forename"/>
         <result property="surname" column="surname"/>
@@ -66,7 +66,7 @@ FROM driver d
                ORDER BY points DESC
                LIMIT #{m}) AS t1
               ON d.id = t1.driver_id
-         JOIN country c on d.country_id = c.id
+         JOIN country c ON d.country_id = c.id
          JOIN (SELECT t2.country_id, t2.gdp
                FROM (SELECT country_id, SUM(gdp) AS gdp
                      FROM world_gdp
@@ -74,5 +74,29 @@ FROM driver d
                      ORDER BY gdp DESC
                      LIMIT #{n}) AS t2) AS t3
               ON d.country_id = t3.country_id;
+    </select>
+
+    <resultMap id="countryWithtTotalGDP" type="edu.upenn.cis550.f1project.entity.vo.CountryWithTotalGDP">
+        <result property="totalGDP" column="gdp"/>
+        <result property="countryName" column="country_name"/>
+    </resultMap>
+
+    <select id="topPlayersHomelandGDP" resultMap="countryWithTotalGDP">
+        SELECT t3.country_name, AVG(t3.gdp) AS gdp
+        FROM (SELECT t1.driver_id, t1.points, t2.gdp, c.country_name
+              FROM (SELECT d.driver_id, SUM(d.points) AS points
+                    FROM driver_standing d
+                    GROUP BY driver_id
+                    ORDER BY points DESC
+                    LIMIT #{n}) AS t1
+                       JOIN driver
+                            ON t1.driver_id = driver.id
+                       JOIN (SELECT w.country_id ci, SUM(w.gdp) AS gdp
+                             FROM world_gdp w
+                             GROUP BY ci
+                             ORDER BY gdp DESC) AS t2
+                            ON driver.country_id = t2.ci
+                       JOIN country c ON driver.country_id = c.id) AS t3
+        GROUP BY t3.country_name;
     </select>
 </mapper>

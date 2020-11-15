@@ -5,7 +5,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class TopPlayerInTopCountry {
+public class TopDriverInTopCountry {
     Integer id;
     String forename;
     String surname;

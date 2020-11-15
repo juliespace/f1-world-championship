@@ -1,12 +1,12 @@
 package edu.upenn.cis550.f1project.service.impl;
 
 import edu.upenn.cis550.f1project.entity.vo.CountryWithGDP;
-import edu.upenn.cis550.f1project.entity.vo.TopPlayerInTopCountry;
+import edu.upenn.cis550.f1project.entity.vo.CountryWithTotalGDP;
+import edu.upenn.cis550.f1project.entity.vo.TopDriverInTopCountry;
 import edu.upenn.cis550.f1project.mapper.CountryMapper;
 import edu.upenn.cis550.f1project.mapper.DriverMapper;
 import edu.upenn.cis550.f1project.mapper.GDPMapper;
 import edu.upenn.cis550.f1project.service.GDPService;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,11 +53,19 @@ public class GDPServiceImpl implements GDPService {
     }
 
     @Override
-    public List<TopPlayerInTopCountry> getTopPlayerAndTopCountry(int mPercentage, int nPercentage) {
+    public List<TopDriverInTopCountry> getTopDriverAndTopCountry(int mPercentage, int nPercentage) {
 
         int nTotal = driverMapper.numberOfDrivers();
         int mTotal = countryMapper.numberOfCountries();
 
         return gdpMapper.bestDriverXBestCountry(mPercentage * nTotal / 100, nPercentage * mTotal / 100);
+    }
+
+    @Override
+    public List<CountryWithTotalGDP> getTopDriverHomeLandGDP(int nPercentage) {
+
+        int nTotal = driverMapper.numberOfDrivers();
+
+        return gdpMapper.topPlayersHomelandGDP(nPercentage * nTotal / 100);
     }
 }
