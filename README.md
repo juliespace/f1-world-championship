@@ -1,5 +1,17 @@
 # CIS550 Project
 
+## Deploy
+
+1. download f1-project-1.0.0.jar
+2. run the following command
+```shell
+java -jar f1-project-1.0.0.jar
+```
+3. send a ping request
+```shell
+curl -XGET http://localhost:8000/f1/ping
+```
+
 ## APIs
 
 ### GDP Trend
