@@ -26,6 +26,8 @@ The GDP trend within the last N (user input) years of the home country of player
 # id: 		driver's id
 # years: 	last n years
 curl -XGET http://localhost:8000/f1/gdp/homeland_gdp_trend?id=1&years=10
+If the previous url fails, try this:
+curl -XGET 'http://localhost:8000/f1/gdp/homeland_gdp_trend?id=1&years=10'
 ```
 
 **Successful Response**
@@ -56,6 +58,8 @@ Countries with top N% (user input) GDP and number of top M% (user input) drivers
 # m: 		driver percentage
 # n: 		country percentage
 curl -XGET http://localhost:8000/f1/gdp/top_drivers_in_top_countries?m=10&n=8
+If the previous url fails, try this:
+curl -XGET 'http://localhost:8000/f1/gdp/top_drivers_in_top_countries?m=10&n=8'
 ```
 
 **Successful Response**
@@ -98,6 +102,8 @@ GDP rankings of all countries hosting F1 in a year of chosen (user input) circui
 ```shell
 # year: 	selected year
 curl -XGET http://localhost:8000/f1/gdp/country_host_f1?year=2010
+If the previous url fails, try this:
+curl -XGET 'http://localhost:8000/f1/gdp/country_host_f1?year=2010'
 ```
 
 **Successful Response**
