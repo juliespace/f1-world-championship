@@ -76,7 +76,7 @@ FROM driver d
               ON d.country_id = t3.country_id;
     </select>
 
-    <resultMap id="countryWithtTotalGDP" type="edu.upenn.cis550.f1project.entity.vo.CountryWithTotalGDP">
+    <resultMap id="countryWithTotalGDP" type="edu.upenn.cis550.f1project.entity.vo.CountryWithTotalGDP">
         <result property="totalGDP" column="gdp"/>
         <result property="countryName" column="country_name"/>
     </resultMap>

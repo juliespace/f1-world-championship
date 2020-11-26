@@ -2,6 +2,7 @@ package edu.upenn.cis550.f1project.controller;
 
 import java.util.List;
 
+import edu.upenn.cis550.f1project.common.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,14 +21,18 @@ public class ConstructorController {
 	private ConstructorService constructorService;
 
 	@GetMapping("/laptime")
-	public List<ConstructorWithLapTime> getConstructorsWithLapTime(@RequestParam("number") int number,
-			@RequestParam("startYear") int startYear, @RequestParam("endYear") int endYear) {
-		return constructorService.getConstructorsWithLeastLapTime(number, startYear, endYear);
+	public R getConstructorsWithLapTime(@RequestParam("number") int number,
+			@RequestParam("start_year") int startYear, @RequestParam("end_year") int endYear) {
+		List<ConstructorWithLapTime> result = constructorService.getConstructorsWithLeastLapTime(number, startYear, endYear);
+
+		return R.ok().put("data", result);
 	}
 	
 	@GetMapping("/points")
-	public List<ConstructorWithPoints> getConstructorsWithPoints(@RequestParam("number") int number,
-			@RequestParam("startYear") int startYear, @RequestParam("endYear") int endYear) {
-		return constructorService.getConstructorsWithMostPonts(number, startYear, endYear); 
+	public R getConstructorsWithPoints(@RequestParam("number") int number,
+			@RequestParam("start_year") int startYear, @RequestParam("end_year") int endYear) {
+		List<ConstructorWithPoints> result = constructorService.getConstructorsWithMostPonts(number, startYear, endYear);
+
+		return R.ok().put("data", result);
 	}
 }
