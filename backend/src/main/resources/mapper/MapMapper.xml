@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.upenn.cis550.f1project.mapper.MapMapper">
+	<resultMap id="yearResult"
+		type="edu.upenn.cis550.f1project.entity.Year">
+		<result property="year" column="race_year" />
+	</resultMap>
+	
+	<select id="getAllYears"
+		resultMap="yearResult">
+		select race_year
+		from race 
+		group by race_year
+		order by race_year; 
+	</select>
+	
+</mapper>
