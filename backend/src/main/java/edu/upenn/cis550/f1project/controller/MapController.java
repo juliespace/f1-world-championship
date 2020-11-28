@@ -1,5 +1,6 @@
 package edu.upenn.cis550.f1project.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,15 @@ public class MapController {
 	private MapService mapService; 
 	
 	@GetMapping("/years")
-	public List<Year> getAllYears() {
-		return mapService.getYears(); 
+	public List<Integer> getAllYears() {
+		List<Year> years = mapService.getYears(); 
+		List<Integer> result = new ArrayList<>(); 
+		
+		for (Year year: years) {
+			result.add(year.getYear()); 
+		}
+				
+		return result; 
 	}
 	
 	@GetMapping("/rounds")
