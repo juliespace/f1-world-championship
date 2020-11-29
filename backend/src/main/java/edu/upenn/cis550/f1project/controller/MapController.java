@@ -33,12 +33,12 @@ public class MapController {
 		return result; 
 	}
 	
-	@GetMapping("/rounds")
+	@GetMapping("/rounds/info")
 	public List<Round> getRoundsInfo(@RequestParam("year") int year) {
 		return mapService.getRoundsInfo(year);
 	}
 
-	@GetMapping("/rounds_features")
+	@GetMapping("/rounds/features")
 	public FeatureCollection getRoundsFeatures(@RequestParam("year") int year) {
 		return mapService.getRoundsFeatures(year);
 	}
