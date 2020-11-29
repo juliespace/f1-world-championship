@@ -283,8 +283,10 @@ class F1stats extends Component {
         </Card>
 
         <Tabs activeTab={this.state.activeTab} onChange={(tabId) => this.setState({ activeTab: tabId })} ripple>
-          <Tab>Drivers</Tab>
-          <Tab>Constuctors</Tab>
+          <Tab>Drivers w/ Least Lap Time</Tab>
+          <Tab>Drivers w/ Most Points</Tab>
+          <Tab>Constuctors w/ Least Lap Time</Tab>
+          <Tab>Constuctors w/ Most Points</Tab>
         </Tabs>
         <section>
             <div className="content">{this.toggleCategories()}</div>
@@ -356,7 +358,15 @@ class F1stats extends Component {
                 {this.state.topDriverStats}
               </div>
             </div>
-
+          </div>
+        </div>
+      )
+      {/*Constructor Query*/}
+    }else if(this.state.activeTab === 1){
+      return(
+        <div>
+          <div style={{paddingTop: '20px', paddingBottom: '20px'}} class="question-text">What is the .. constructor</div>
+          <div className="container driverTopics-container">
             <div className="jumbotron">
               <div className="h5">The driver that gets the most points in  history, top x drivers with the most points from YYYY to YYYY.</div>
               <div className="h5">example: The driver that gets the most points in  history, top 10 drivers with the most points from 2018 to 2019</div>
@@ -382,57 +392,61 @@ class F1stats extends Component {
           </div>
         </div>
       )
-      {/*Constructor Query*/}
-    }else if(this.state.activeTab === 1){
+    }else if(this.state.activeTab === 2){
       return(
         <div>
-          <div style={{paddingTop: '20px', paddingBottom: '20px'}} class="question-text">What is the .. constructor</div>
-          <div className="container ConstructorsTopics-container">
-            <div className="jumbotron">
-              <div className="h5">Constructors Having the Least Average Lap Time</div>
-              <div className="h5">example: The top ten constructors that have the least average lap time from 1950 to 2020.</div>
-              <br></br>
-              <div className="input-container">
-                <input type='text' placeholder="Enter start Season i.e. 2018" value={this.state.constructorStartSeason} onChange={this.handleConstructorStartSeasonChange} id="construtorStartSeason" className="season-input"/>
-                <input type='text' placeholder="Enter end Season i.e. 2019" value={this.state.constructorEndSeason} onChange={this.handleConstructorEndSeasonChange} id="constructorEndSeason" className="season-input"/>
-                <button id="submitConstructorSeasonBtn" className="submit-btn" onClick={this.submitConstructorsSeasonRange}>Submit</button>
-              </div>
-              <div className="header-container">
-                <div className="h6">Result is ...</div>
-                <div className="headers">
-                  <div className="header"><strong>constructorName:</strong></div>
-                  <div className="header"><strong>averageLapTime:</strong></div>
-                </div>
-              </div>
-              <div className="results-container" id="results">
-                {this.state.leastLapTimeConstructors}
+        <div className="container ConstructorsTopics-container">
+          <div className="jumbotron">
+            <div className="h5">Constructors Having the Least Average Lap Time</div>
+            <div className="h5">example: The top ten constructors that have the least average lap time from 1950 to 2020.</div>
+            <br></br>
+            <div className="input-container">
+              <input type='text' placeholder="Enter start Season i.e. 2018" value={this.state.constructorStartSeason} onChange={this.handleConstructorStartSeasonChange} id="construtorStartSeason" className="season-input"/>
+              <input type='text' placeholder="Enter end Season i.e. 2019" value={this.state.constructorEndSeason} onChange={this.handleConstructorEndSeasonChange} id="constructorEndSeason" className="season-input"/>
+              <button id="submitConstructorSeasonBtn" className="submit-btn" onClick={this.submitConstructorsSeasonRange}>Submit</button>
+            </div>
+            <div className="header-container">
+              <div className="h6">Result is ...</div>
+              <div className="headers">
+                <div className="header"><strong>constructorName:</strong></div>
+                <div className="header"><strong>averageLapTime:</strong></div>
               </div>
             </div>
-
-            <div className="jumbotron">
-              <div className="h5">Constructor with the most points.</div>
-              <div className="h5">The constructor with the most points in history (top x constructors with the most points from YYYY to YYYY).</div>
-              <br></br>
-              <div className="input-container">
-                {/*<input type='text' placeholder="Enter a number i.e. 5" value={this.state.movieName} onChange={this.handleMovieNameChange} id="movieName" className="movie-input"/>
-                <button id="submitMovieBtn" className="submit-btn" onClick={this.submitMovie}>Submit</button> */}
-                <input type='text' placeholder="Enter start Season i.e. 2018" value={this.state.driverStartSeason} onChange={this.handleDriverStartSeasonChange} id="driverStartSeason" className="season-input"/>
-                <input type='text' placeholder="Enter end Season i.e. 2019" value={this.state.driverEndSeason} onChange={this.handleDriverEndSeasonChange} id="driverEndSeason" className="season-input"/>
-                <button id="submitDriverSeasonBtn" className="submit-btn" onClick={this.submitConstructorParaForMostPoints}>Submit</button>
-              </div>
-              <div className="header-container">
-                <div className="h6">Result is ...</div>
-                <div className="headers">
-                  <div className="header"><strong>Forename:</strong></div>
-                  <div className="header"><strong>Surname:</strong></div>
-                  <div className="header"><strong>Points:</strong></div>
-                </div>
-              </div>
-              <div className="results-container" id="results">
-                {this.state.mostPointsConstructors}
-              </div>
+            <div className="results-container" id="results">
+              {this.state.leastLapTimeConstructors}
             </div>
           </div>
+        </div>
+        </div>
+      )
+    }else if(this.state.activeTab === 3){
+      return(
+        <div>
+        <div className="container ConstructorsTopics-container">
+          <div className="jumbotron">
+            <div className="h5">Constructor with the most points.</div>
+            <div className="h5">The constructor with the most points in history (top x constructors with the most points from YYYY to YYYY).</div>
+            <br></br>
+            <div className="input-container">
+              {/*<input type='text' placeholder="Enter a number i.e. 5" value={this.state.movieName} onChange={this.handleMovieNameChange} id="movieName" className="movie-input"/>
+              <button id="submitMovieBtn" className="submit-btn" onClick={this.submitMovie}>Submit</button> */}
+              <input type='text' placeholder="Enter start Season i.e. 2018" value={this.state.driverStartSeason} onChange={this.handleDriverStartSeasonChange} id="driverStartSeason" className="season-input"/>
+              <input type='text' placeholder="Enter end Season i.e. 2019" value={this.state.driverEndSeason} onChange={this.handleDriverEndSeasonChange} id="driverEndSeason" className="season-input"/>
+              <button id="submitDriverSeasonBtn" className="submit-btn" onClick={this.submitConstructorParaForMostPoints}>Submit</button>
+            </div>
+            <div className="header-container">
+              <div className="h6">Result is ...</div>
+              <div className="headers">
+                <div className="header"><strong>Forename:</strong></div>
+                <div className="header"><strong>Surname:</strong></div>
+                <div className="header"><strong>Points:</strong></div>
+              </div>
+            </div>
+            <div className="results-container" id="results">
+              {this.state.mostPointsConstructors}
+            </div>
+          </div>
+        </div>
         </div>
       )
     }
