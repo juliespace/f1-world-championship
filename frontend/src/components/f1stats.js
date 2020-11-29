@@ -16,7 +16,7 @@ class F1stats extends Component {
       topDriverStats:[],
       //Q2
       driverStartSeason: "",
-      driverEndSeason: "",     
+      driverEndSeason: "",
       mostPointsDrivers: [],
       // Constructor with Least Lap Time
       constructorEndSeason: "",
@@ -64,14 +64,15 @@ class F1stats extends Component {
     })
     .then(res => {
       // Convert the response data to JSON
-      return res.json().data;
+      return res.json();
     }, err => {
       // Print error if there is one
       console.log(err);
-    }).then(topDriverStatsList => {
-      if (!topDriverStatsList) return;
-      console.log(topDriverStatsList); //displays your JSON object in the console
-      let topDriverStatsDivs = topDriverStatsList.map((topDriverStatObj, i) => 
+    }).then(topDriverData => {
+      if (!topDriverData) return;
+      console.log(topDriverData); //displays your JSON object in the console
+      let topDriverStatsList = topDriverData.data;
+      let topDriverStatsDivs = topDriverStatsList.map((topDriverStatObj, i) =>
         <TopDriverStatRow forename={topDriverStatObj.forename} surname={topDriverStatObj.surname} milliseconds={topDriverStatObj.milliseconds}/>
       );
       this.setState({
@@ -112,8 +113,8 @@ class F1stats extends Component {
   //   }).then(topDriverStatsList => {
   //     if (!topDriverStatsList) return;
   //     console.log(topDriverStatsList); //displays your JSON object in the console
-  //     // 
-  //     let topDriverStatsDivs = topDriverStatsList.map((topDriverStatObj, i) => 
+  //     //
+  //     let topDriverStatsDivs = topDriverStatsList.map((topDriverStatObj, i) =>
   //       <TopDriverStatRow forename={topDriverStatObj.forename} surname={topDriverStatObj.surname} milliseconds={topDriverStatObj.milliseconds}/>
   //     );
 
@@ -124,7 +125,7 @@ class F1stats extends Component {
   //   });
   // }
 
-// for Q3: 
+// for Q3:
   /*fetch possible seasons */
   // componentDidMount() {
   //   fetch("http://localhost:8081/decades",
@@ -170,8 +171,8 @@ class F1stats extends Component {
     }).then(mostPointsDriversList => {
       if (!mostPointsDriversList) return;
       console.log(mostPointsDriversList); //displays your JSON object in the console
-      // 
-      let mostPointsDriversDivs = mostPointsDriversList.map((MostPointsDriversObj, i) => 
+      //
+      let mostPointsDriversDivs = mostPointsDriversList.map((MostPointsDriversObj, i) =>
         <MostPointsDriverRow forename={MostPointsDriversObj.forename} surname={MostPointsDriversObj.surname} points={MostPointsDriversObj.points}/>
       );
       this.setState({
@@ -199,7 +200,7 @@ class F1stats extends Component {
   submitConstructorsSeasonRange() {
     var start = this.state.constructorStartSeason;
     var end = this.state.constructorEndSeason;
-    var targetUrl = "http://localhost:8000/f1/constructor/laptime?number=10&start_year=" + start + "&end_year=" + end; 
+    var targetUrl = "http://localhost:8000/f1/constructor/laptime?number=10&start_year=" + start + "&end_year=" + end;
     // http://localhost:8000/f1/constructor/points?number=10&start_year=1990&end_year=2000
     console.log(targetUrl);
     fetch(targetUrl,
@@ -214,8 +215,8 @@ class F1stats extends Component {
     }).then(leastLapTimeConstructorList => {
       if (!leastLapTimeConstructorList) return;
       console.log(leastLapTimeConstructorList); //displays your JSON object in the console
-      // 
-      let leastLapTimeConstructorDivs = leastLapTimeConstructorList.map((leastLapTimeConstructorObj, i) => 
+      //
+      let leastLapTimeConstructorDivs = leastLapTimeConstructorList.map((leastLapTimeConstructorObj, i) =>
         <LeastLapTimeConstructorRow constructorName={leastLapTimeConstructorObj.constructorName} averageLapTime={leastLapTimeConstructorObj.averageLapTime}/>
       );
       this.setState({
@@ -244,7 +245,7 @@ class F1stats extends Component {
     var topNumber = this.state.constructorTopNumber;
     var start = this.state.constructorStartSeason;
     var end = this.state.constructorEndSeason;
-    var targetUrl = "http://localhost:8000/f1/constructor/points?number=" + topNumber + "&start_year=" + start + "&end_year=" + end; 
+    var targetUrl = "http://localhost:8000/f1/constructor/points?number=" + topNumber + "&start_year=" + start + "&end_year=" + end;
     // 'http://localhost:8000/f1/constructor/points?number=10&start_year=1990&end_year=2000'
     console.log(targetUrl);
     fetch(targetUrl,
@@ -259,8 +260,8 @@ class F1stats extends Component {
     }).then(leastLapTimeConstructorList => {
       if (!leastLapTimeConstructorList) return;
       console.log(leastLapTimeConstructorList); //displays your JSON object in the console
-      // 
-      let leastLapTimeConstructorDivs = leastLapTimeConstructorList.map((LeastLapTimeConstructorObj, i) => 
+      //
+      let leastLapTimeConstructorDivs = leastLapTimeConstructorList.map((LeastLapTimeConstructorObj, i) =>
         <LeastLapTimeConstructorRow constructorName={LeastLapTimeConstructorObj.constructorName} averageLapTime={LeastLapTimeConstructorObj.averageLapTime}/>
       );
       this.setState({
@@ -278,7 +279,7 @@ class F1stats extends Component {
       <div style={{width: '100%', margin: 0}}>
         {/*Image with Title*/}
         <Card shadow={0} style={{width: '100%', height: '600px', background: 'url(https://images7.alphacoders.com/613/613535.jpg) center / cover', margin: 'auto'}}>
-          <div class="center-text">RACE STATISTICS</div>
+          <div className="center-text">RACE STATISTICS</div>
         </Card>
 
         <Tabs activeTab={this.state.activeTab} onChange={(tabId) => this.setState({ activeTab: tabId })} ripple>
