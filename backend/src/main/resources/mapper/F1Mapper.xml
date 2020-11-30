@@ -3,21 +3,6 @@
 
 <mapper namespace="edu.upenn.cis550.f1project.mapper.F1Mapper">
 
-	<select id="getCityByName"
-		resultType="edu.upenn.cis550.f1project.entity.City">
-		SELECT *
-		FROM usa_city
-		WHERE city_name = #{name};
-	</select>
-
-	<insert id="saveCity"
-		parameterType="edu.upenn.cis550.f1project.entity.City">
-		INSERT INTO usa_city (city_name, state_name)
-		VALUES
-		(#{city.cityName}, #{city.stateName});
-	</insert>
-
-
 	<!-- 1st constructor query -->
 	<resultMap id="constructorRstWithTime"
 		type="edu.upenn.cis550.f1project.entity.ConstructorWithLapTime">
@@ -76,11 +61,14 @@
 
 	<select id="getDriversWithLeastLapTime"
 		resultMap="driverRstWithLapTime">
-		select forename, surname, avg(milliseconds) as avg_milliseconds
+		select forename, surname, avg(milliseconds) as
+		avg_milliseconds
 		from race r join lap_time lt on r.id = lt.race_id
-		join driver d on lt.driver_id = d.id
+		join
+		driver d on lt.driver_id = d.id
 		where race_year = #{year}
-		group by forename, surname
+		group by
+		forename, surname
 		order by avg_milliseconds
 		limit #{number};
 	</select>

@@ -22,7 +22,7 @@ public class MapServiceTests {
 	
 	@Test
 	public void testRoundsFeatures() {
-		FeatureCollection fc = mapService.getRoundsFeatures(2010);
+		FeatureCollection fc = mapService.getRoundsFeatures();
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			String str = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(fc);
