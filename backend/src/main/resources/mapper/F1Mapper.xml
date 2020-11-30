@@ -76,17 +76,12 @@
 
 	<select id="getDriversWithLeastLapTime"
 		resultMap="driverRstWithLapTime">
-		select forename, surname, avg(milliseconds) as
-		avg_milliseconds
-		from driver d join driver_standing ds on d.id =
-		ds.driver_id
-		join race r on ds.race_id = r.id
-		join lap_time lt on d.id =
-		lt.driver_id
+		select forename, surname, avg(milliseconds) as avg_milliseconds
+		from race r join lap_time lt on r.id = lt.race_id
+		join driver d on lt.driver_id = d.id
 		where race_year = #{year}
 		group by forename, surname
-		order
-		by avg_milliseconds asc
+		order by avg_milliseconds
 		limit #{number};
 	</select>
 
@@ -102,8 +97,10 @@
 	<select id="getDriverWithMostPoints"
 		resultMap="driverRstWithPoints">
 		select forename, surname, sum(points) as total_points
-		from driver d join driver_standing ds on d.id = ds.driver_id
-		join race r on ds.race_id = r.id
+		from
+		driver d join driver_standing ds on d.id = ds.driver_id
+		join race r on
+		ds.race_id = r.id
 		where race_year &gt;= 1995 and race_year &lt;= 2000
 		group by forename, surname
 		order by total_points desc
