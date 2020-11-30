@@ -40,14 +40,45 @@
   fontWeight: 100;
 }
 
+.example-text {
+  top: 500px;
+  text-align: center;
+  font-size: 15px;
+  color:#808080;
+  fontWeight: 100;
+}
+
 .topDriverResults{
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  margin-left: 5px;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.topDriverHeaders{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 15%;
+  margin-right: 15%;
+  font-size: 20px;
+}
+
+.topDriverHeaders .items{
+  flex: 1 0 10%;
+  margin-left: 10%;
 }
 
 .topDriverResults .forename, .surname, .milliseconds{
-  flex: 1 0 25%;
-  margin-left: 50px;
+  flex: 1 0 10%;
+  margin-left: 10%;
+}
+
+.input-container, .header-container{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-left: 40%;
 }

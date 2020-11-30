@@ -331,34 +331,27 @@ class F1stats extends Component {
 
   toggleCategories(){
     if(this.state.activeTab === 0){
-      {/*Drivers Query*/}
+      {/*First Driver Query*/}
       return(
         <div>
-          <div style={{paddingTop: '20px', paddingBottom: '20px'}} class="question-text">Who is the .. driver</div>
-          <div className="container driverTopics-container">
-            <div className="jumbotron">
-              <div className="h5">Top 10 Drivers Used the Least Average Lap Time.</div>
-              <div className="h5">example: The top 10 drivers that used the least average lap time in the 2019.</div>
+          <div style={{paddingTop: '20px', paddingBottom: '5px'}} class="question-text">Top 10 Drivers Used the Least Average Lap Time</div>
+              <div class="example-text">example: The top 10 drivers that used the least average lap time in the 2019.</div>
               <br></br>
               <div className="input-container">
                 {/*<input type='text' placeholder="Enter a number i.e. 5" value={this.state.movieName} onChange={this.handleMovieNameChange} id="movieName" className="movie-input"/>
                 <button id="submitMovieBtn" className="submit-btn" onClick={this.submitMovie}>Submit</button> */}
-                <input type='text' placeholder="Enter Season i.e. 2019" value={this.state.driverSeason} onChange={this.handleDriverSeasonChange} id="driverSeason" className="movie-input"/>
-                <button id="submitDriverSeasonBtn" className="submit-btn" onClick={this.submitDriverSeason}>Submit</button>
+                <input type='text' placeholder="Enter Season i.e. 2019" value={this.state.driverSeason} onChange={this.handleDriverSeasonChange} id="driverSeason"/>
+                <button id="submitDriverSeasonBtn" onClick={this.submitDriverSeason}>Submit</button>
               </div>
-              <div className="header-container">
-                <div className="h6">Result is ...</div>
-                <div className="headers">
-                  <div className="header"><strong>Forename:</strong></div>
-                  <div className="header"><strong>Surname:</strong></div>
-                  <div className="header"><strong>Milliseconds:</strong></div>
+                <div className="topDriverHeaders">
+                  <div className="items"><strong>Forename</strong></div>
+                  <div className="items"><strong>Surname</strong></div>
+                  <div className="items"><strong>Milliseconds</strong></div>
                 </div>
-              </div>
-              <div className="results-container" id="results">
+              <div>
                 {this.state.topDriverStats}
               </div>
-            </div>
-          </div>
+              <div style={{paddingTop: '30px', paddingBottom: '30px'}} class="question-text">  </div>
         </div>
       )
       {/*Constructor Query*/}
