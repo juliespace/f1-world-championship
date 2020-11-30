@@ -3,6 +3,7 @@ package edu.upenn.cis550.f1project.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.geojson.FeatureCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,8 +33,13 @@ public class MapController {
 		return result; 
 	}
 	
-	@GetMapping("/rounds")
+	@GetMapping("/rounds/info")
 	public List<Round> getRoundsInfo(@RequestParam("year") int year) {
 		return mapService.getRoundsInfo(year);
+	}
+
+	@GetMapping("/rounds/features")
+	public FeatureCollection getRoundsFeatures(@RequestParam("year") int year) {
+		return mapService.getRoundsFeatures(year);
 	}
 }
