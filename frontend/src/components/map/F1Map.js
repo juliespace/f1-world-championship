@@ -4,6 +4,8 @@ import Leaflet, { latLng, tileLayer } from 'leaflet';
 import ReactDOMServer from 'react-dom/server';
 import 'leaflet/dist/leaflet.css';
 import './F1Map.css';
+import Round from './Round.js';
+import Filter from './Filter.js';
 
 export class F1Map extends Component {
   state = {
@@ -41,6 +43,9 @@ export class F1Map extends Component {
   init = (id) => {
     const map = Leaflet.map(id, config.params);
 
+    Leaflet.control.zoom({ position: 'bottomleft' }).addTo(map);
+    Leaflet.control.scale({ position: 'bottomleft' }).addTo(map);
+
     const tileLayer = Leaflet.tileLayer(
       config.tileLayer.uri,
       config.tileLayer.params
@@ -75,7 +80,9 @@ export class F1Map extends Component {
   };
 
   onEachFeature = (feature, layer) => {
-    layer.bindPopup();
+    layer.bindPopup(
+      ReactDOMServer.renderToString(<Round {...feature.properties} />)
+    );
   };
 
   pointToLayer = (feature, latLng) => {
@@ -92,9 +99,13 @@ export class F1Map extends Component {
     return feature.properties.time.indexOf(this.state.yearFilter) === 0;
   };
 
-  updateGeojsonLayer = () => {};
+  updateGeojsonLayer = () => {
+    const geojsonLayer = this.state.geojsonLayer;
+    geojsonLayer.clearLayers();
+    geojsonLayer.addData(this.state.geojson);
+  };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate = (prevProps, prevState) => {
     if (
       this.state.geojson &&
       this.state.mapContainer &&
@@ -106,20 +117,33 @@ export class F1Map extends Component {
     if (this.state.yearSelected !== prevState.yearSelected) {
       this.updateGeojsonLayer();
     }
-  }
+  };
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     this.setState({ mapContainer: null });
-  }
+  };
+
+  updateYear = (e) => {
+    this.setState({ yearSelected: e.target.value });
+  };
 
   render() {
+    const { years, yearSelected } = this.state;
+
     return (
-      <div
-        ref={(node) => {
-          this._mapNode = node;
-        }}
-        id='map'
-      ></div>
+      <div>
+        <Filter
+          years={years}
+          yearSelected={yearSelected}
+          updateYear={this.updateYear}
+        />
+        <div
+          ref={(node) => {
+            this._mapNode = node;
+          }}
+          id='map'
+        ></div>
+      </div>
     );
   }
 }
