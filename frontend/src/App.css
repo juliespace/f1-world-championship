@@ -79,6 +79,48 @@
 .input-container, .header-container{
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
+  align-content: center;
   margin-left: 40%;
+}
+
+.input-container-threeInput, .header-container{
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  margin-left: 28%;
+}
+
+.input-container-twoInput, .header-container{
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  margin-left: 36%;
+}
+
+.topConstructorResults{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-left: 23%;
+  margin-right: 15%;
+}
+
+.topConstructorHeaders{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 23%;
+  margin-right: 15%;
+  font-size: 20px;
+}
+
+.topConstructorHeaders .items{
+  flex: 1 0 10%;
+  margin-left: 10%;
+}
+
+.topConstructorResults .constructor, .milliseconds{
+  flex: 1 0 10%;
+  margin-left: 10%;
 }

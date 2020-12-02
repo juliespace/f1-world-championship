@@ -7,9 +7,9 @@ export default class LeastLapTimeConstructorRow extends React.Component {
 
 	render() {
 		return (
-			<div className="leastLapTimeConstructorResults">
-				<div className="constructorName">{this.props.constructorName}</div>
-				<div className="averageLapTime">{this.props.averageLapTime}</div>
+			<div className="topConstructorResults">
+				<div className="constructor">{this.props.constructorName}</div>
+				<div className="milliseconds">{this.props.averageLapTime}</div>
 			</div>
 		);
 	}

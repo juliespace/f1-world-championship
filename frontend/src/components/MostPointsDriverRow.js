@@ -7,10 +7,10 @@ export default class MostPointsDriverRow extends React.Component {
 
 	render() {
 		return (
-			<div className="mostPointsDriverResults">
+			<div className="topDriverResults">
 				<div className="forename">{this.props.forename}</div>
 				<div className="surname">{this.props.surname}</div>
-				<div className="points">{this.props.points}</div>
+				<div className="milliseconds">{this.props.points}</div>
 			</div>
 		);
 	}
