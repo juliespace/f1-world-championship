@@ -17,31 +17,31 @@ export class F1Map extends Component {
     years: [],
   };
 
-  config = {
-    params: {
-      zoomControl: false,
-      zoom: 2,
-      maxZoom: 18,
-      minZoom: 2,
-      scrollwheel: false,
-      legends: true,
-      infoControl: false,
-      attributionControl: true,
-    },
-    tileLayer: {
-      uri: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      params: {
-        minZoom: 2,
-        attribution:
-          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-        id: '',
-        accessToken: '',
-      },
-    },
-  };
-
   init = (id) => {
-    const map = Leaflet.map(id, config.params);
+    const config = {
+      params: {
+        zoomControl: false,
+        zoom: 2,
+        maxZoom: 18,
+        minZoom: 2,
+        scrollwheel: false,
+        legends: true,
+        infoControl: false,
+        attributionControl: true,
+      },
+      tileLayer: {
+        uri: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        params: {
+          minZoom: 2,
+          attribution:
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+          id: '',
+          accessToken: '',
+        },
+      },
+    };
+  
+      const map = Leaflet.map(id, config.params);
 
     Leaflet.control.zoom({ position: 'bottomleft' }).addTo(map);
     Leaflet.control.scale({ position: 'bottomleft' }).addTo(map);
@@ -92,7 +92,7 @@ export class F1Map extends Component {
       fillOpacity: 0.4,
     };
 
-    return Leaflet.circleMarker(latlng, marker);
+    return Leaflet.circleMarker(latLng, marker);
   };
 
   filter = (feature, layer) => {
