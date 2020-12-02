@@ -42,7 +42,7 @@ public class MapServiceImpl implements MapService {
 	}
 
 	@Override
-	public FeatureCollection getRoundsFeatures(int year) {
+	public FeatureCollection getRoundsFeatures() {
 		ObjectMapper mapper = new ObjectMapper();
 		InputStream is = getClass().getResourceAsStream("rounds_wiki.json");
 		try {
@@ -50,8 +50,8 @@ public class MapServiceImpl implements MapService {
 			List<RoundWiki> rounds = mapper.readValue(is, new TypeReference<List<RoundWiki>>() {});
 
 			for (RoundWiki round : rounds) {
-				if (!round.getTime().substring(0, 4).equals(year + ""))
-					continue;
+//				if (!round.getTime().substring(0, 4).equals(year + ""))
+//					continue;
 
 //				logger.info("round: {}", round);
 

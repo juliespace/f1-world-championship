@@ -39,7 +39,7 @@ public class MapController {
 	}
 
 	@GetMapping("/rounds/features")
-	public FeatureCollection getRoundsFeatures(@RequestParam("year") int year) {
-		return mapService.getRoundsFeatures(year);
+	public FeatureCollection getRoundsFeatures() {
+		return mapService.getRoundsFeatures();
 	}
 }

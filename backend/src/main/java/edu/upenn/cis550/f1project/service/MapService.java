@@ -12,5 +12,5 @@ public interface MapService {
 
 	List<Round> getRoundsInfo(int year); 
 
-	FeatureCollection getRoundsFeatures(int year); 
+	FeatureCollection getRoundsFeatures(); 
 }
