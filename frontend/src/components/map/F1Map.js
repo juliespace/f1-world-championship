@@ -1,148 +1,133 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import Leaflet, { latLng, tileLayer } from 'leaflet';
-import ReactDOMServer from 'react-dom/server';
+import ReactDOMServer from "react-dom/server";
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './F1Map.css';
-import Round from './Round.js';
-import Filter from './Filter.js';
+import RoundSelector from './RoundSelector';
+import Round from './Round';
 
-export class F1Map extends Component {
+class F1Map extends Component {
   state = {
-    mapContainer: null,
+    yearFilter: '2010',
+    years: [],
+    map: null,
     tileLayer: null,
     geojsonLayer: null,
-    geojson: null,
-    yearSelected: '2010',
-    years: [],
+    geojson: null
   };
 
-  init = (id) => {
-    const config = {
-      params: {
-        zoomControl: false,
-        zoom: 2,
-        maxZoom: 18,
-        minZoom: 2,
-        scrollwheel: false,
-        legends: true,
-        infoControl: false,
-        attributionControl: true,
-      },
-      tileLayer: {
-        uri: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        params: {
-          minZoom: 2,
-          attribution:
-            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-          id: '',
-          accessToken: '',
-        },
-      },
-    };
-  
-      const map = Leaflet.map(id, config.params);
+constructor(props) {
+    super(props);
+    this.mapElement = null;
+    this.onEachFeature = this.onEachFeature.bind(this);
+    this.pointToLayer = this.pointToLayer.bind(this);
+    this.filterFeatures = this.filterFeatures.bind(this);
+    this.newGeoJSONLayer = this.newGeoJSONLayer.bind(this);
+    this.updateGeoJSONLayer = this.updateGeoJSONLayer.bind(this);
+    this.updateFeatures = this.updateFeatures.bind(this);
+  }
 
-    Leaflet.control.zoom({ position: 'bottomleft' }).addTo(map);
-    Leaflet.control.scale({ position: 'bottomleft' }).addTo(map);
-
-    const tileLayer = Leaflet.tileLayer(
-      config.tileLayer.uri,
-      config.tileLayer.params
-    ).addTo(map);
-
-    this.setState({ mapContainer: map, tileLayer: tileLayer });
-  };
-
-  searchYears = async () => {
-    const res = await Axios.get('http://localhost:8000/f1/map/years');
-    this.setState({ years: res });
-  };
-
-  searchFeatureCollections = async () => {
-    const res = await Axios.get('http://localhost:8000/f1/map/rounds/features');
-    this.setState({ geojson: res });
-
-    if (!this.state.mapContainer) {
-      this.init(this._mapNode);
+  componentDidMount() {
+    if (!this.state.map) {
+      Promise.all([
+        fetch('http://localhost:8000/f1/map/years').then(r => r.json()), 
+        fetch(`http://localhost:8000/f1/map/rounds/features`).then(r => r.json())
+      ])
+      .then(([years, geojson]) => {
+        this.setState({years, geojson})
+      });
+      this.newMap();
     }
-  };
+  }
 
-  newGeojsonLayer = () => {
-    const layer = Leaflet.geoJSON(this.state.geojson, {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.geojson && this.state.map && !this.state.geojsonLayer) {
+      this.newGeoJSONLayer(this.state.geojson);
+    }
+
+    if (this.state.yearFilter !== prevState.yearFilter) {
+      this.updateGeoJSONLayer();
+    }
+  }
+
+  componentWillUnmount() {
+    this.state.map.remove();
+  }
+
+  updateFeatures(e) {
+    this.setState({yearFilter: e.target.value});
+  }
+
+  newGeoJSONLayer() {
+    const geojsonLayer = L.geoJson(this.state.geojson, {
       onEachFeature: this.onEachFeature,
       pointToLayer: this.pointToLayer,
-      filter: this.filter,
+      filter: this.filterFeatures
     });
+    geojsonLayer.addTo(this.state.map);
+    this.setState({ geojsonLayer });
+    this.fitBounds(geojsonLayer);
+  }
 
-    layer.addTo(this.state.map);
-    this.setState({ geojsonLayer: layer });
-  };
-
-  onEachFeature = (feature, layer) => {
-    layer.bindPopup(
-      ReactDOMServer.renderToString(<Round {...feature.properties} />)
-    );
-  };
-
-  pointToLayer = (feature, latLng) => {
-    const marker = {
-      radius: 10,
-      fillColor: 'purple',
-      fillOpacity: 0.4,
-    };
-
-    return Leaflet.circleMarker(latLng, marker);
-  };
-
-  filter = (feature, layer) => {
-    return feature.properties.time.indexOf(this.state.yearFilter) === 0;
-  };
-
-  updateGeojsonLayer = () => {
+  updateGeoJSONLayer() {
     const geojsonLayer = this.state.geojsonLayer;
     geojsonLayer.clearLayers();
     geojsonLayer.addData(this.state.geojson);
-  };
+    this.fitBounds(geojsonLayer);
+  }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (
-      this.state.geojson &&
-      this.state.mapContainer &&
-      !this.state.geojsonLayer
-    ) {
-      this.newGeojsonLayer();
-    }
+  fitBounds(geojsonLayer) {
+    this.state.map.fitBounds(geojsonLayer.getBounds(), {
+      paddingTopLeft: [200,10],
+      paddingBottomRight: [10,10]
+    });
+  }
 
-    if (this.state.yearSelected !== prevState.yearSelected) {
-      this.updateGeojsonLayer();
-    }
-  };
+  filterFeatures(feature, layer) {
+    return feature.properties.time.indexOf(this.state.yearFilter) === 0;
+  }
 
-  componentWillUnmount = () => {
-    this.setState({ mapContainer: null });
-  };
+  pointToLayer(feature, latlng) {
+    return L.circleMarker(latlng, {
+            weight: 1,
+            opacity: 0.5,
+            fillOpacity: 0.8,
+            fillColor: 'green',
+            radius: 10
+    });
+  }
 
-  updateYear = (e) => {
-    this.setState({ yearSelected: e.target.value });
-  };
+  onEachFeature(feature, layer) {
+      layer.bindPopup(ReactDOMServer.renderToString(<Round {...feature.properties}/>));
+  }
+
+  newMap() {
+    const map = L.map(this.mapElement, {
+      minZoom: 3,
+      maxZoom: 18,
+      zoom: 3,
+      attributionControl: true
+    });
+
+    const tileLayer = L.tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+            //'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+            {
+              minZoom: 3,
+              attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+            }).addTo(map);
+
+    this.setState({ map, tileLayer });
+  }
 
   render() {
-    const { years, yearSelected } = this.state;
-
+    console.log('render');
     return (
-      <div>
-        <Filter
-          years={years}
-          yearSelected={yearSelected}
-          updateYear={this.updateYear}
-        />
-        <div
-          ref={(node) => {
-            this._mapNode = node;
-          }}
-          id='map'
-        ></div>
+      <div id="f1map">
+        <RoundSelector years={this.state.years}
+          yearFilter={this.state.yearFilter}
+          onUpdate={this.updateFeatures} />
+        <div ref={(node) => this.mapElement = node} id="map" />
       </div>
     );
   }
