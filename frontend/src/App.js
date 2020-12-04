@@ -12,7 +12,6 @@ function App() {
                     <Link to="/">Home</Link>
                     <Link to="/f1stats">F1 Statistics</Link>
                     <Link to="/f1ecnomics">F1 & Economics</Link>
-                    <Link to="/f1uscities">US Hosting Cities</Link>
                     <Link to="/f1maps">F1 Maps</Link>
                 </Navigation>
             </Header>
@@ -22,7 +21,6 @@ function App() {
                   <Link to="/">Home</Link>
                   <Link to="/f1stats">F1 Statistics</Link>
                   <Link to="/f1ecnomics">F1 & Economics</Link>
-                  <Link to="/f1uscities">US Hosting Cities</Link>
                   <Link to="/f1maps">F1 Maps</Link>
                 </Navigation>
             </Drawer>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.upenn.cis550.f1project.mapper.MapMapper">
+
+	<!-- query to get all available years -->
+	<resultMap id="yearResult"
+		type="edu.upenn.cis550.f1project.entity.Year">
+		<result property="year" column="race_year" />
+	</resultMap>
+
+	<select id="getAllYears" resultMap="yearResult">
+		select race_year
+		from race
+		group by race_year
+		order by race_year;
+	</select>
+
+
+	<!-- query to get all information of selected round -->
+	<resultMap id="roundResult"
+		type="edu.upenn.cis550.f1project.entity.Round">
+		<result property="round" column="round" />
+		<result property="name" column="name" />
+		<result property="date" column="date" />
+		<result property="firstname" column="forename" />
+		<result property="lastname" column="surname" />
+		<result property="points" column="points" />
+		<result property="constructor" column="constructor" />
+		<result property="location" column="location" />
+		<result property="country" column="country" />
+	</resultMap>
+
+	<select id="getRoundsInfo" resultMap="roundResult">
+		with
+		temp1 as (
+			select id as race_id, race_round, circuit_id, race_name, race_date
+			from race
+			where race_year = #{year}),
+		temp2 as (
+			select r.race_id, driver_id, constructor_id, points
+			from result r join temp1 t1 on r.race_id = t1.race_id
+			where r.position = 1),
+		temp3 as (
+			select id as driver_id, forename, surname
+			from driver d join temp2 t2 on d.id = t2.driver_id),
+		temp4 as (
+			select id as constructor_id, constructor_name
+			from constructor c join temp2 t2 on c.id = t2.constructor_id),
+		temp5 as (
+			select id as circuit_id, location, country_id
+			from circuit c join temp1 t1 on c.id = t1.circuit_id),
+		temp6 as (
+			select id as country_id, country_name
+			from country c join temp5 t5 on c.id = t5.country_id)
+		select distinct race_round as round, race_name as name, race_date as date,
+			forename, surname, points, constructor_name as constructor, location,
+			country_name as country
+		from temp1 t1 join temp2 t2 on t1.race_id = t2.race_id
+					  join temp3 t3 on t2.driver_id = t3.driver_id
+					  join temp4 t4 on t2.constructor_id = t4.constructor_id
+					  join temp5 t5 on t1.circuit_id = t5.circuit_id
+					  join temp6 t6 on t5.country_id = t6.country_id;
+	</select>
+
+
+</mapper>
