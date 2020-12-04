@@ -25,6 +25,10 @@ public class ConstructorController {
 			@RequestParam("start_year") int startYear, @RequestParam("end_year") int endYear) {
 		List<ConstructorWithLapTime> result = constructorService.getConstructorsWithLeastLapTime(number, startYear, endYear);
 
+		if (result.size() == 0) {
+			return R.error(-1, "found zero record");
+		}
+
 		return R.ok().put("data", result);
 	}
 	
@@ -32,6 +36,10 @@ public class ConstructorController {
 	public R getConstructorsWithPoints(@RequestParam("number") int number,
 			@RequestParam("start_year") int startYear, @RequestParam("end_year") int endYear) {
 		List<ConstructorWithPoints> result = constructorService.getConstructorsWithMostPonts(number, startYear, endYear);
+
+		if (result.size() == 0) {
+			return R.error(-1, "found zero record");
+		}
 
 		return R.ok().put("data", result);
 	}
