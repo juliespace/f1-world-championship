@@ -79,14 +79,14 @@
 .input-container, .header-container{
   display: flex;
   flex-flow: row nowrap;
-  align-content: center;
+  /* align-content: center; */
   margin-left: 40%;
 }
 
 .input-container-threeInput, .header-container{
   display: flex;
   flex-flow: row nowrap;
-  align-content: center;
+  /* align-content: center; */
   margin-left: 28%;
 }
 
