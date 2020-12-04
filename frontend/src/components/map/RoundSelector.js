@@ -1,14 +1,16 @@
 import React from 'react';
 
-const Filter = ({ years, updateYear, yearSelected }) => {
+export default ({ years, yearFilter, onUpdate }) => {
   return (
-    <div>
+    <div className='roundSelector'>
+      <hr />
+      <h5>Formula One</h5>
       <p>Filter Rounds By Year</p>
       <select
-        value={yearSelected}
-        name='filterRounds'
+        value={yearFilter}
         type='select'
-        onChange={(e) => this.updateYear(e)}
+        name='filterRounds'
+        onChange={(e) => onUpdate(e)}
       >
         {years.map((year, i) => {
           return (
@@ -21,5 +23,3 @@ const Filter = ({ years, updateYear, yearSelected }) => {
     </div>
   );
 };
-
-export default Filter;

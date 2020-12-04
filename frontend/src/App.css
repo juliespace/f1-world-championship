@@ -2,7 +2,6 @@
   background: #0B486B;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #F56217, #0B486B);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #F56217, #0B486B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
 }
 
 .landing-grid {
@@ -35,7 +34,7 @@
 .question-text {
   top: 500px;
   text-align: center;
-  font-size: 18px;
+  font-size: 20px;
   color: #000000;
   fontWeight: 100;
 }
@@ -48,15 +47,9 @@
   fontWeight: 100;
 }
 
-.topDriverResults{
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  margin-left: 15%;
-  margin-right: 15%;
-}
-
 .topDriverHeaders{
+  background: #D3D3D3;
+  padding: 5px;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -71,7 +64,21 @@
   margin-left: 10%;
 }
 
+.topDriverResults{
+  padding: 1.5px;
+  background:#F0F8FF;
+  border-top: 0.1px;
+  border-top-style: dashed;
+  border-color: #969B9F;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
 .topDriverResults .forename, .surname, .milliseconds{
+  background:#F0F8FF;
   flex: 1 0 10%;
   margin-left: 10%;
 }
@@ -79,14 +86,14 @@
 .input-container, .header-container{
   display: flex;
   flex-flow: row nowrap;
-  align-content: center;
+  /* align-content: center; */
   margin-left: 40%;
 }
 
 .input-container-threeInput, .header-container{
   display: flex;
   flex-flow: row nowrap;
-  align-content: center;
+  /* align-content: center; */
   margin-left: 28%;
 }
 
@@ -97,20 +104,14 @@
   margin-left: 36%;
 }
 
-.topConstructorResults{
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  margin-left: 23%;
-  margin-right: 15%;
-}
-
 .topConstructorHeaders{
+  background: #D3D3D3;
+  padding: 5px;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   margin-top: 20px;
-  margin-left: 23%;
+  margin-left: 18%;
   margin-right: 15%;
   font-size: 20px;
 }
@@ -120,7 +121,21 @@
   margin-left: 10%;
 }
 
+.topConstructorResults{
+  padding: 1.5px;
+  background:#F0F8FF;
+  border-top: 0.1px;
+  border-top-style: dashed;
+  border-color: #969B9F;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-left: 18%;
+  margin-right: 15%;
+}
+
 .topConstructorResults .constructor, .milliseconds{
+  background:#F0F8FF;
   flex: 1 0 10%;
   margin-left: 10%;
 }

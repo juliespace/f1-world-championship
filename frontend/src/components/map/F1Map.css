@@ -1,4 +1,26 @@
-.leaflet-container {
-  width: 100%;
-  height: 880px;
+.leaflet-grab {
+  cursor: auto;
+}
+.leaflet-dragging .leaflet-grab {
+  cursor: move;
+}
+#root,
+#map,
+#f1map {
+  z-index: 1;
+  height: 100%;
+}
+.roundSelector {
+  z-index: 10;
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  width: 200px;
+  background: hsla(0, 100%, 100%, 0.7);
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+.roundSelector select {
+  display: block;
+  margin: 0 auto;
 }
