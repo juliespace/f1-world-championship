@@ -374,9 +374,9 @@ class F1stats extends Component {
             <button id="submitDriverSeasonBtn" className="submit-btn" onClick={this.submitDriverSeasonRange}>Submit</button>
           </div>
           <div className="topDriverHeaders">
-            <div className="items"><strong>Forename:</strong></div>
-            <div className="items"><strong>Surname:</strong></div>
-            <div className="items"><strong>Points:</strong></div>
+            <div className="items"><strong>Forename</strong></div>
+            <div className="items"><strong>Surname</strong></div>
+            <div className="items"><strong>Points</strong></div>
          </div>
          <div>
             {this.state.mostPointsDrivers}
@@ -396,8 +396,8 @@ class F1stats extends Component {
             <button id="submitConstructorSeasonBtn" className="submit-btn" onClick={this.submitConstructorsSeasonRange}>Submit</button>
           </div>
           <div className="topConstructorHeaders">
-            <div className="items"><strong>Constructor:</strong></div>
-            <div className="items"><strong>AvgLapTime:</strong></div>
+            <div className="items"><strong>Constructor</strong></div>
+            <div className="items"><strong>AvgLapTime</strong></div>
           </div>
           <div>
             {this.state.leastLapTimeConstructors}
@@ -423,9 +423,9 @@ class F1stats extends Component {
             <div className="header-container">
               <div className="h6">Result is ...</div>
               <div className="headers">
-                <div className="header"><strong>Forename:</strong></div>
-                <div className="header"><strong>Surname:</strong></div>
-                <div className="header"><strong>Points:</strong></div>
+                <div className="header"><strong>Forename</strong></div>
+                <div className="header"><strong>Surname</strong></div>
+                <div className="header"><strong>Points</strong></div>
               </div>
             </div>
             <div className="results-container" id="results">
