@@ -25,6 +25,10 @@ public class DriverController {
 								   @RequestParam("season") int season) {
 		List<DriverWithLapTime> result = driverService.getDriversWithLapTime(number, season);
 
+		if (result.size() == 0) {
+			return R.error(-1, "found zero record");
+		}
+
 		return R.ok().put("data", result);
 	}
 	
@@ -32,6 +36,10 @@ public class DriverController {
 	public R getDriverWithPoints(@RequestParam("number") int number,
 			@RequestParam("start_year") int startYear, @RequestParam("end_year") int endYear) {
 		List<DriverWithPoints> result = driverService.getDriverWithMostPoints(number, startYear, endYear);
+
+		if (result.size() == 0) {
+			return R.error(-1, "found zero record");
+		}
 
 		return R.ok().put("data", result);
 	}

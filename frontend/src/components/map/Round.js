@@ -13,28 +13,27 @@ export default ({
 }) => {
   const winnerAlt = 'winner: ' + winnerName;
   return (
-    <div>
-      <h4>{country}</h4>
-      <h4>{time.substring(0, 10)}</h4>
-      <h4>{circuit}</h4>
-      <img
+    <div className='round'>
+      <label>{circuit}</label>
+      <br/>
+      <label>{country}</label>
+      <label>{time.substring(0, 10)}</label>
+      <img id='leftimg'
         src={planImage}
         title={circuit}
         alt={circuit}
-        width='100'
-        height='100'
+        width='50%'
       />
-      <img
+      <img id='rightimg'
         src={winnerImage}
         title={winnerAlt}
         alt={winnerAlt}
-        width='100'
-        height='100'
+        width='50%'
       />
-      <h4>{winnerCitizenship}</h4>
-      <h4>
-        {winnerDob.substring(0, 4)} {winnerHeight}cm
-      </h4>
+      <label>{winnerName}</label>
+      <br/>
+      <label>{winnerCitizenship}</label>
+      <label>{winnerDob.substring(0, 4)} {winnerHeight}cm</label>
     </div>
   );
 };

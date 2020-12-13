@@ -1,25 +1,38 @@
 import React from 'react';
 
-export default ({ years, yearFilter, onUpdate }) => {
+export default ({ filters, selections, onUpdate }) => {
+  // console.log('RoundSelector', filters);
   return (
     <div className='roundSelector'>
-      <hr />
-      <h5>Formula One</h5>
-      <p>Filter Rounds By Year</p>
-      <select
-        value={yearFilter}
-        type='select'
-        name='filterRounds'
-        onChange={(e) => onUpdate(e)}
-      >
-        {years.map((year, i) => {
-          return (
-            <option value={year} key={i}>
-              {year}
-            </option>
-          );
-        }, this)}
-      </select>
+      <h5>Filters:</h5>
+      <div>
+      {
+        filters.map((filter, filterIndex) => {
+        let val = selections[filter.property];
+        if (!val)
+          val = filter.values[0];
+        console.log('roundSelector:', filter.property, val);
+        return <div className='roundFilter'>
+            <label>{filter.label}</label>
+            <select
+              value={val}
+              type='select'
+              name={filter.property}
+              onChange={(e) => onUpdate(e)}
+            >
+              {filter.values.map((value, i) => {
+                return (
+                  <option value={value} key={i}>
+                    {value}
+                  </option>
+                );
+              }, this)}
+            </select>
+            </div>
+        })
+      }
+      </div>
+
     </div>
   );
 };

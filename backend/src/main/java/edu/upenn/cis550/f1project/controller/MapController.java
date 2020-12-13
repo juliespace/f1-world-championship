@@ -1,6 +1,7 @@
 package edu.upenn.cis550.f1project.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.geojson.FeatureCollection;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.upenn.cis550.f1project.entity.Round;
 import edu.upenn.cis550.f1project.entity.Year;
 import edu.upenn.cis550.f1project.service.MapService;
+import edu.upenn.cis550.f1project.service.impl.RoundFilter;
 
 @RestController
 @RequestMapping("/map")
@@ -38,6 +40,11 @@ public class MapController {
 		return mapService.getRoundsInfo(year);
 	}
 
+	@GetMapping("/rounds/filters")
+	public Collection<RoundFilter> getRoundFilters() {
+		return mapService.getRoundFilters();
+	}
+	
 	@GetMapping("/rounds/features")
 	public FeatureCollection getRoundsFeatures() {
 		return mapService.getRoundsFeatures();

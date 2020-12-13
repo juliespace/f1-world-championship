@@ -21,12 +21,20 @@ public class GDPController {
     public R getCountryWithGDP(@RequestParam("year") int year) {
         List<CountryWithGDP> result = gdpService.selectCountriesThatHoldF1WithGDP(year);
 
+        if (result.size() == 0) {
+            return R.error(-1, "found zero record");
+        }
+
         return R.ok().put("data", result);
     }
 
     @GetMapping("/homeland_gdp_trend")
     public R getHomelandGDPTrend(@RequestParam("id") int id, @RequestParam("years") int years) {
         Map<String, String> result = gdpService.findDriverHomelandGDPTrend(id, years);
+
+        if (result.size() == 0) {
+            return R.error(-1, "found zero record");
+        }
 
         return R.ok().put("data", result);
     }
@@ -35,12 +43,20 @@ public class GDPController {
     public R getTopDriverAndTopCountry(@RequestParam("m") int mPercentage, @RequestParam("n") int nPercentage) {
         List<TopDriverInTopCountry> result = gdpService.getTopDriverAndTopCountry(mPercentage, nPercentage);
 
+        if (result.size() == 0) {
+            return R.error(-1, "found zero record");
+        }
+
         return R.ok().put("data", result);
     }
 
     @GetMapping("/top_driver_homeland_gdp")
     public R getTopDriverHomelandGDP(@RequestParam("n") int nPercentage) {
         List<CountryWithTotalGDP> result = gdpService.getTopDriverHomeLandGDP(nPercentage);
+
+        if (result.size() == 0) {
+            return R.error(-1, "found zero record");
+        }
 
         return R.ok().put("data", result);
     }
