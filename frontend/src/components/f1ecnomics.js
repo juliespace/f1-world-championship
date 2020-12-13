@@ -236,7 +236,7 @@ class F1ecnomics extends Component {
             <input type='text' placeholder="Enter a number i.e. 20" value={this.state.topNplayer} onChange={this.handleTopNChange} id="playerNumber"/>
             <button id="submitTopNPlayerBtn" onClick={this.submitTopNplayer}>Submit</button>
           </div>
-            <div className="topNPlayerHomeHeaders">
+            <div className="topConstructorHeaders">
             <div className="items"><strong>TotalGDP</strong></div>
             <div className="items"><strong>CountryName</strong></div>
           </div>
@@ -280,12 +280,12 @@ class F1ecnomics extends Component {
             <button id="submitTopDriverTopCountryBtn" className="submit-btn" onClick={this.submitTopDriverTopCountry}>Submit</button>
           </div>
           <div className="topMDriverTopNCountryHeaders">
-            <div className="items"><strong>Id</strong></div>
-            <div className="items"><strong>Forename</strong></div>
-            <div className="items"><strong>Surname</strong></div>
-            <div className="items"><strong>TotalPoints</strong></div>
-            <div className="items"><strong>CountryName</strong></div>
-            <div className="items"><strong>GDP</strong></div>
+            <div className="subitems"><strong>Id</strong></div>
+            <div className="subitems"><strong>Forename</strong></div>
+            <div className="subitems"><strong>Surname</strong></div>
+            <div className="subitems"><strong>TotalPoints</strong></div>
+            <div className="subitems"><strong>CountryName</strong></div>
+            <div className="subitems"><strong>GDP</strong></div>
           </div>
           <div>
             {this.state.topMDriverTopNCountryResults}
@@ -303,7 +303,7 @@ class F1ecnomics extends Component {
             <input type='text' placeholder="Enter a year i.e. 1990" value={this.state.yearChange} onChange={this.handleYearChange} id="yearChange"/>
             <button id="submitGDPRankingsBtn" className="submit-btn" onClick={this.submitGDPRankings}>Submit</button>
           </div>
-            <div className="gdpRankingsHeaders">
+            <div className="topDriverHeaders">
             <div className="items"><strong>Year</strong></div>
             <div className="items"><strong>GDP</strong></div>
             <div className="items"><strong>CountryName</strong></div>

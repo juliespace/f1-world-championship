@@ -7,10 +7,10 @@ export default class GDPRankingsRow extends React.Component {
 
 	render() {
 		return (
-			<div className="gdpRankingsResults">
-				<div className="year">{this.props.year}</div>
-				<div className="gdp">{this.props.gdp}</div>
-				<div className="countryName">{this.props.countryName}</div>
+			<div className="topDriverResults">
+				<div className="forename">{this.props.year}</div>
+				<div className="surname">{this.props.gdp}</div>
+				<div className="milliseconds">{this.props.countryName}</div>
 			</div>
 		);
 	}
