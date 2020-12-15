@@ -33,18 +33,18 @@
     <select id="findDriverHomelandGDPTrend" resultMap="countryWithGDP">
         SELECT c.country_name, t2.year, t2.gdp FROM country c JOIN ((SELECT *
  FROM world_gdp
- WHERE (country_id = (SELECT t1.country_id FROM (SELECT * FROM driver d WHERE d.id = #{id}) AS t1)
+ WHERE (country_id = (SELECT t1.country_id FROM (SELECT * FROM driver d WHERE d.surname = #{name} ) AS t1)
      AND gdp > 0
      AND ((SELECT year
            FROM world_gdp w
-           WHERE country_id = (SELECT t1.country_id FROM (SELECT * FROM driver d WHERE d.id = #{id}) AS t1)
+           WHERE country_id = (SELECT t1.country_id FROM (SELECT * FROM driver d WHERE d.surname = #{name}) AS t1)
              AND gdp > 0
            ORDER BY year DESC
            LIMIT 1) - year) > #{years})
  ORDER BY year DESC
  LIMIT 1)
 UNION
-(SELECT * FROM world_gdp WHERE country_id = (SELECT t1.country_id FROM (SELECT * FROM driver d WHERE d.id = #{id}) AS t1) AND gdp > 0 ORDER BY year DESC LIMIT 1)) AS t2
+(SELECT * FROM world_gdp WHERE country_id = (SELECT t1.country_id FROM (SELECT * FROM driver d WHERE d.surname = #{name}) AS t1) AND gdp > 0 ORDER BY year DESC LIMIT 1)) AS t2
 ON c.id = t2.country_id;
     </select>
 

@@ -3,6 +3,7 @@ package edu.upenn.cis550.f1project.service.impl;
 import edu.upenn.cis550.f1project.entity.vo.CountryWithGDP;
 import edu.upenn.cis550.f1project.entity.vo.CountryWithTotalGDP;
 import edu.upenn.cis550.f1project.entity.vo.TopDriverInTopCountry;
+import edu.upenn.cis550.f1project.entity.vo.TrendInfo;
 import edu.upenn.cis550.f1project.mapper.CountryMapper;
 import edu.upenn.cis550.f1project.mapper.DriverMapper;
 import edu.upenn.cis550.f1project.mapper.GDPMapper;
@@ -34,8 +35,8 @@ public class GDPServiceImpl implements GDPService {
     }
 
     @Override
-    public Map<String, String> findDriverHomelandGDPTrend(int driverId, int years) {
-        List<CountryWithGDP> list = gdpMapper.findDriverHomelandGDPTrend(driverId, years);
+    public Map<String, String> findDriverHomelandGDPTrend(TrendInfo info) {
+        List<CountryWithGDP> list = gdpMapper.findDriverHomelandGDPTrend(info.getName(), info.getYear());
 
         double value1 = list.get(0).getGdp().doubleValue();
         double value2 = list.get(1).getGdp().doubleValue();
@@ -45,9 +46,9 @@ public class GDPServiceImpl implements GDPService {
 
         Map<String, String> map = new HashMap<>();
 
-        map.put("first-year", list.get(0).getYear().toString());
-        map.put("last-year", list.get(1).getYear().toString());
-        map.put("gdp-trend", percentage);
+        map.put("first_year", list.get(0).getYear().toString());
+        map.put("last_year", list.get(1).getYear().toString());
+        map.put("gdp_trend", percentage);
 
         return map;
     }
