@@ -7,10 +7,9 @@ export default class MostPointsConstructorsRow extends React.Component {
 
 	render() {
 		return (
-			<div className="mostPointsConstructorsRow">
-				<div className="constructorName">{this.props.constructorName}</div>
-				<div className="points">{this.props.points}</div>
-				<div className="name">{this.props.name}</div>
+			<div className="topConstructorResults">
+				<div className="constructor">{this.props.constructorName}</div>
+				<div className="milliseconds">{this.props.points}</div>
 			</div>
 		);
 	}

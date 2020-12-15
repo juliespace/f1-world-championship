@@ -299,9 +299,9 @@ class F1stats extends Component {
             <button id="submitDriverSeasonBtn" className="submit-btn" onClick={this.submitDriverSeasonRange}>Submit</button>
           </div>
           <div className="topDriverHeaders">
-            <div className="items"><strong>Forename:</strong></div>
-            <div className="items"><strong>Surname:</strong></div>
-            <div className="items"><strong>Points:</strong></div>
+            <div className="items"><strong>Forename</strong></div>
+            <div className="items"><strong>Surname</strong></div>
+            <div className="items"><strong>Points</strong></div>
          </div>
          <div>
             {this.state.mostPointsDrivers}
@@ -321,8 +321,8 @@ class F1stats extends Component {
             <button id="submitConstructorSeasonBtn" className="submit-btn" onClick={this.submitConstructorsSeasonRange}>Submit</button>
           </div>
           <div className="topConstructorHeaders">
-            <div className="items"><strong>Constructor:</strong></div>
-            <div className="items"><strong>AvgLapTime:</strong></div>
+            <div className="items"><strong>Constructor</strong></div>
+            <div className="items"><strong>AvgLapTime</strong></div>
           </div>
           <div>
             {this.state.leastLapTimeConstructors}
@@ -343,8 +343,8 @@ class F1stats extends Component {
             <button id="submitConstructorPointsSeasonBtn" className="submit-btn" onClick={this.submitConstructorParaForMostPoints}>Submit</button>
           </div>
           <div className="topConstructorHeaders">
-            <div className="items"><strong>Constructor:</strong></div>
-            <div className="items"><strong>Points:</strong></div>
+            <div className="items"><strong>Constructor</strong></div>
+            <div className="items"><strong>Points</strong></div>
           </div>
           <div>
             {this.state.mostPointsConstructors}

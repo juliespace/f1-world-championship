@@ -7,9 +7,9 @@ export default class TopNPlayerHomeRow extends React.Component {
 
 	render() {
 		return (
-			<div className="topNPlayerHomeResults">
-				<div className="totalGDP">{this.props.totalGDP}</div>
-				<div className="countryName">{this.props.countryName}</div>
+			<div className="topConstructorResults">
+				<div className="constructor">{this.props.totalGDP}</div>
+				<div className="milliseconds">{this.props.countryName}</div>
 			</div>
 		);
 	}

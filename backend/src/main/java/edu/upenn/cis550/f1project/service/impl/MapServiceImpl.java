@@ -2,6 +2,7 @@ package edu.upenn.cis550.f1project.service.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,28 @@ public class MapServiceImpl implements MapService {
 	public List<Round> getRoundsInfo(int year) {
 		return mapMapper.getRoundsInfo(year);
 	}
+	
+	@Override
+	public Collection<RoundFilter> getRoundFilters() {
+		List<RoundWiki> rounds = loadRounds();
+		RoundFilters filters = new RoundFilters();
+		for (RoundWiki round : rounds) {
+			filters.addFilter("time", "Race Year", round.getTime().substring(0, 4));
+			filters.addFilter("winnerName", "Winner Name", round.getWinnerName());
+			filters.addFilter("winnerCitizenship", "Winner Citizenship", round.getWinnerCitizenship());
+		}
+		return filters.getFilters().values();
+	}
+	
+	public List<RoundWiki> loadRounds() {
+		ObjectMapper mapper = new ObjectMapper();
+		InputStream is = getClass().getResourceAsStream("rounds_wiki.json");
+		try {
+			return mapper.readValue(is, new TypeReference<List<RoundWiki>>() {});
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	@Override
 	public FeatureCollection getRoundsFeatures() {
@@ -50,11 +73,6 @@ public class MapServiceImpl implements MapService {
 			List<RoundWiki> rounds = mapper.readValue(is, new TypeReference<List<RoundWiki>>() {});
 
 			for (RoundWiki round : rounds) {
-//				if (!round.getTime().substring(0, 4).equals(year + ""))
-//					continue;
-
-//				logger.info("round: {}", round);
-
 				Feature feature = new Feature();
 
 				feature.setGeometry(retrievePoint(round));
